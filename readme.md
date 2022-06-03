@@ -4,6 +4,7 @@
 - conncet.py: connecting to localhost postgresql database
 - create_table.py: create table in postgresql
 - insert_data.py: insert scrapped data in postgresql
+- postgres_public_product_examples.md: sample data
 
 ## Strategy For Scrapping The Whole Website (www.thereformation.com)
 1. Get all the names and links of low level categories on the font page:
