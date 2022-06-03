@@ -29,3 +29,7 @@ After building a table of all the products from the website, we can get new prod
 ## Strategy For updating data
 There are columns 'scrapped_date' and 'product_link' in the table, by testing if product links is still available, more specifically, if the product is no longer available, the product's website will show no product details and show some error messages.
 The strategy should be testing the earliest data and check if they are unavailable, if so, drop them from the table.
+
+## Further
+- Storing data on AWS RDS
+- Deploy scrapper on AWS docker
