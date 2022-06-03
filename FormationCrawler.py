@@ -3,6 +3,10 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time
 import datetime
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 
 
 class FormationBot:
@@ -20,7 +24,13 @@ class FormationBot:
 
     def get_lower_level_links(self) -> dict:
         self.browser.get(self.main_url)
-        time.sleep(5)
+        # time.sleep(5)
+        timeout = 15
+        try:
+            element_present = EC.presence_of_element_located((By.CSS_SELECTOR, "li.header-flyout__item.level-1"))
+            WebDriverWait(self.browser, timeout).until(element_present)
+        except TimeoutException:
+            print("Timed out waiting for main page to load")
         page = self.browser.page_source
         soup = bs4.BeautifulSoup(page, "html.parser")
 
@@ -47,7 +57,14 @@ class FormationBot:
     def get_product_links(self, url: str, page_amount: int) -> dict:
         url = url + '?page=' + str(page_amount)
         self.browser.get(url)
-        time.sleep(10)
+        # time.sleep(10)
+        timeout = 15
+        try:
+            element_present = EC.presence_of_element_located((By.CSS_SELECTOR, "div.product-tile.product-tile--default"))
+            WebDriverWait(self.browser, timeout).until(element_present)
+        except TimeoutException:
+            print("Timed out waiting for low level page to load")
+
         page = self.browser.page_source
         soup = bs4.BeautifulSoup(page, "html.parser")
 
@@ -67,7 +84,15 @@ class FormationBot:
         # some info like image cannot be easily extracted by original html, therefore we need selenium and chromedriver
         # url = 'https://www.thereformation.com/products/jeune-dress/1310804ZSE.html'
         self.browser.get(product_url)
-        time.sleep(5)
+        # time.sleep(5)
+        timeout = 15
+        try:
+            element_present = EC.presence_of_element_located(
+                (By.CSS_SELECTOR, "div.viewer-wrap"))
+            WebDriverWait(self.browser, timeout).until(element_present)
+        except TimeoutException:
+            print("Timed out waiting for low level page to load")
+
         page = self.browser.page_source
         soup = bs4.BeautifulSoup(page, "html.parser")
 

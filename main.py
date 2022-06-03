@@ -9,6 +9,7 @@ if __name__ == '__main__':
     print('Lower_level data collected!')
 
     product_info = reformationRobot.run(lower_level)
+    print(product_info)
     print('Product_info data collected!')
 
     print('Begin insert data')
